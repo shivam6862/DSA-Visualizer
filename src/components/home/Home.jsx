@@ -9,20 +9,27 @@ const Home = () => {
       <div className={classes.navbar}>
         <div className={classes.nav}>
           <Link to="/mergesort" className={classes.navItem}>
-            mergesort
+            Mergesort
           </Link>
           <Link to="/selectionsort" className={classes.navItem}>
-            selectionsort
+            Selectionsort
           </Link>
-
           <Link to="/bubblesort" className={classes.navItem}>
-            bubblesort
+            Bubblesort
           </Link>
           <Link to="/insertionsort" className={classes.navItem}>
-            insertionsort
+            Insertionsort
           </Link>
           <Link to="/quicksort" className={classes.navItem}>
-            quicksort
+            Quicksort
+          </Link>
+        </div>
+      </div>
+      <div className={classes.heading}>Graph Visualizer</div>
+      <div className={classes.navbar}>
+        <div className={classes.nav}>
+          <Link to="/pathfinder" className={classes.navItem}>
+            Pathfinder
           </Link>
         </div>
       </div>

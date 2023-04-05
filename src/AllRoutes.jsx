@@ -7,6 +7,8 @@ import BubbleSort from "./components/sorting/BubbleSort";
 import InsertionSort from "./components/sorting/InsertionSort";
 import QuickSort from "./components/sorting/QuickSort";
 
+import PathFinder from "./components/graph/PathFinder";
+
 const routes = [
   {
     path: "/",
@@ -31,6 +33,10 @@ const routes = [
   {
     path: "/quicksort",
     Component: QuickSort,
+  },
+  {
+    path: "/pathfinder",
+    Component: PathFinder,
   },
 ];
 
