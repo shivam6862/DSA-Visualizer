@@ -31,6 +31,9 @@ const Home = () => {
           <Link to="/pathfinder" className={classes.navItem}>
             Pathfinder
           </Link>
+          <Link to="/depthfirstsearch" className={classes.navItem}>
+            Depth First Search
+          </Link>
         </div>
       </div>
     </div>

@@ -8,6 +8,7 @@ import InsertionSort from "./components/sorting/InsertionSort";
 import QuickSort from "./components/sorting/QuickSort";
 
 import PathFinder from "./components/graph/PathFinder";
+import DepthFirstSearch from "./components/graph/DepthFirstSearch/DepthFirstSearch";
 
 const routes = [
   {
@@ -37,6 +38,10 @@ const routes = [
   {
     path: "/pathfinder",
     Component: PathFinder,
+  },
+  {
+    path: "/depthfirstsearch",
+    Component: DepthFirstSearch,
   },
 ];
 
