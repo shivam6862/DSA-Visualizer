@@ -8,11 +8,11 @@ import Node from "../Node";
 const DepthFirstSearch = () => {
   const START_NODE_COL = 1;
   const START_NODE_ROW = 1;
-  const FINISH_NODE_ROW = 8;
-  const FINISH_NODE_COL = 8;
-  const TOTAL_ROW = 10;
-  const TOTAL_COL = 10;
-  const ANIMATION_SPEED = 100;
+  const FINISH_NODE_ROW = 13;
+  const FINISH_NODE_COL = 28;
+  const TOTAL_ROW = 15;
+  const TOTAL_COL = 45;
+  const ANIMATION_SPEED = 1;
 
   const [grid, setGrid] = useState([]);
   const [mouseIsPressed, setMouseIsPressed] = useState(false);
@@ -28,7 +28,7 @@ const DepthFirstSearch = () => {
       isFinish: row === FINISH_NODE_ROW && col === FINISH_NODE_COL,
       distance: Infinity,
       isVisited: false,
-      isWall: false,
+      isWall: true,
       previousNode: null,
     };
   };
@@ -36,19 +36,12 @@ const DepthFirstSearch = () => {
   const refileGrid = () => {
     setButton(false);
     arraybarRef.current.innerHTML = "";
-    for (let row = 0; row < TOTAL_ROW; row++) {
-      for (let col = 0; col < TOTAL_COL; col++) {
-        if (row == START_NODE_ROW && col == START_NODE_COL) {
-          document.getElementById(`node-${row}-${col}`).className =
-            "node node-start";
-        } else if (row == FINISH_NODE_ROW && col == FINISH_NODE_COL) {
-          document.getElementById(`node-${row}-${col}`).className =
-            "node node-finish";
-        } else {
-          document.getElementById(`node-${row}-${col}`).className = "node";
-        }
-      }
-    }
+    document.getElementById(
+      `node-${START_NODE_ROW}-${START_NODE_COL}`
+    ).className = "node node-start";
+    document.getElementById(
+      `node-${FINISH_NODE_ROW}-${FINISH_NODE_COL}`
+    ).className = "node node-finish";
   };
 
   const getInitialGrid = () => {
@@ -97,7 +90,6 @@ const DepthFirstSearch = () => {
 
   // Step 3
   const animateDfs = (visitedNodesInOrder, nodesInShortestPathOrder) => {
-    var a = 0;
     for (let i = 0; i < visitedNodesInOrder.length; i++) {
       if (i === visitedNodesInOrder.length - 1) {
         setTimeout(() => {
@@ -107,7 +99,6 @@ const DepthFirstSearch = () => {
       }
       setTimeout(() => {
         const node = visitedNodesInOrder[i];
-        document.getElementById(`node-${node.row}-${node.col}`).innerHTML = i; // remove it
         document.getElementById(`node-${node.row}-${node.col}`).className =
           "node node-visited";
       }, ANIMATION_SPEED * i);
@@ -140,6 +131,8 @@ const DepthFirstSearch = () => {
     }
     const startNode = grid[START_NODE_ROW][START_NODE_COL];
     const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
+    startNode.isWall = false;
+    finishNode.isWall = false;
     const visitedNodesInOrder = depthfirstsearch(grid, startNode, finishNode);
     const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
     animateDfs(visitedNodesInOrder, nodesInShortestPathOrder);
