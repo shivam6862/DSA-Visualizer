@@ -1,21 +1,18 @@
 import React, { useState, useRef, useEffect } from "react";
 import {
   getNodesInShortestPathOrder,
-  depthfirstsearch,
-} from "./getDepthFirstSearch";
+  breadthFirstSearch,
+} from "./getBreadthFirstSearch";
 import classes from "../Graph.module.css";
 import Button from "../../ui/Button";
 import { BackButton } from "../../ui/BackButton";
 import Node from "../Node";
 
-const DepthFirstSearch = () => {
-  const START_NODE_COL = 1;
-  const START_NODE_ROW = 1;
-  const FINISH_NODE_ROW = 13;
-  const FINISH_NODE_COL = 28;
-  const TOTAL_ROW = 15;
-  const TOTAL_COL = 45;
-  const ANIMATION_SPEED = 1;
+const BreadthFirstSearch = () => {
+  const START_NODE_COL = 5;
+  const START_NODE_ROW = 6;
+  const FINISH_NODE_ROW = 10;
+  const FINISH_NODE_COL = 18;
 
   const [grid, setGrid] = useState([]);
   const [mouseIsPressed, setMouseIsPressed] = useState(false);
@@ -31,7 +28,7 @@ const DepthFirstSearch = () => {
       isFinish: row === FINISH_NODE_ROW && col === FINISH_NODE_COL,
       distance: Infinity,
       isVisited: false,
-      isWall: true,
+      isWall: false,
       previousNode: null,
     };
   };
@@ -39,19 +36,26 @@ const DepthFirstSearch = () => {
   const refileGrid = () => {
     setButton(false);
     arraybarRef.current.innerHTML = "";
-    document.getElementById(
-      `node-${START_NODE_ROW}-${START_NODE_COL}`
-    ).className = "node node-start";
-    document.getElementById(
-      `node-${FINISH_NODE_ROW}-${FINISH_NODE_COL}`
-    ).className = "node node-finish";
+    for (let row = 0; row < 15; row++) {
+      for (let col = 0; col < 45; col++) {
+        if (row == START_NODE_ROW && col == START_NODE_COL) {
+          document.getElementById(`node-${row}-${col}`).className =
+            "node node-start";
+        } else if (row == FINISH_NODE_ROW && col == FINISH_NODE_COL) {
+          document.getElementById(`node-${row}-${col}`).className =
+            "node node-finish";
+        } else {
+          document.getElementById(`node-${row}-${col}`).className = "node";
+        }
+      }
+    }
   };
 
   const getInitialGrid = () => {
     const grid = [];
-    for (let row = 0; row < TOTAL_ROW; row++) {
+    for (let row = 0; row < 15; row++) {
       const currentRow = [];
-      for (let col = 0; col < TOTAL_COL; col++) {
+      for (let col = 0; col < 45; col++) {
         currentRow.push(createNode(col, row));
       }
       grid.push(currentRow);
@@ -92,19 +96,29 @@ const DepthFirstSearch = () => {
   };
 
   // Step 3
-  const animateDfs = (visitedNodesInOrder, nodesInShortestPathOrder) => {
-    for (let i = 0; i < visitedNodesInOrder.length; i++) {
-      if (i === visitedNodesInOrder.length - 1) {
+  const animateBreadthFirstSearch = (
+    visitedNodesInOrder,
+    nodesInShortestPathOrder
+  ) => {
+    var a = 0;
+    for (let i = 0; i <= visitedNodesInOrder.length; i++) {
+      if (i === visitedNodesInOrder.length) {
         setTimeout(() => {
           animateShortestPath(nodesInShortestPathOrder);
-        }, ANIMATION_SPEED * i);
+        }, 400 * (visitedNodesInOrder[visitedNodesInOrder.length - 1].distance + 1));
         return;
+      }
+      if (
+        i < visitedNodesInOrder.length - 1 &&
+        visitedNodesInOrder[i].distance != visitedNodesInOrder[i + 1].distance
+      ) {
+        ++a;
       }
       setTimeout(() => {
         const node = visitedNodesInOrder[i];
         document.getElementById(`node-${node.row}-${node.col}`).className =
           "node node-visited";
-      }, ANIMATION_SPEED * i);
+      }, 400 * a);
     }
   };
 
@@ -114,16 +128,16 @@ const DepthFirstSearch = () => {
         const node = nodesInShortestPathOrder[i];
         document.getElementById(`node-${node.row}-${node.col}`).className =
           "node node-shortest-path";
-      }, ANIMATION_SPEED * 2 * i);
+      }, 100 * i);
     }
     var length = nodesInShortestPathOrder.length - 1;
     setTimeout(() => {
       if (length <= 0) arraybarRef.current.innerHTML = "Path not Possible! ";
       else arraybarRef.current.innerHTML = "Minimun Distance : " + length;
-    }, ANIMATION_SPEED * 2 * length);
+    }, 100 * length);
   };
 
-  const visualizeDfs = () => {
+  const visualizeBreadthFirstSearch = () => {
     setButton(true);
     if (
       START_NODE_ROW == FINISH_NODE_ROW &&
@@ -134,17 +148,16 @@ const DepthFirstSearch = () => {
     }
     const startNode = grid[START_NODE_ROW][START_NODE_COL];
     const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
-    startNode.isWall = false;
-    finishNode.isWall = false;
-    const visitedNodesInOrder = depthfirstsearch(grid, startNode, finishNode);
+    const visitedNodesInOrder = breadthFirstSearch(grid, startNode, finishNode);
     const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
-    animateDfs(visitedNodesInOrder, nodesInShortestPathOrder);
+    animateBreadthFirstSearch(visitedNodesInOrder, nodesInShortestPathOrder);
   };
 
+  // Step 4
   return (
     <div className={classes.container}>
       <BackButton />
-      <div className={classes.heading}>Depth First Search</div>
+      <div className={classes.heading}>Breadth First Search</div>
       <div className={classes.grid}>
         {grid.map((row, rowIdx) => {
           return (
@@ -183,14 +196,14 @@ const DepthFirstSearch = () => {
         <Button
           disabled={button}
           onClick={() => {
-            visualizeDfs();
+            visualizeBreadthFirstSearch();
           }}
         >
-          DFS
+          BFS
         </Button>
       </div>
     </div>
   );
 };
 
-export default DepthFirstSearch;
+export default BreadthFirstSearch;

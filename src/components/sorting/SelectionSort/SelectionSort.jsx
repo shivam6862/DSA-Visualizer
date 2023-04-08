@@ -1,14 +1,14 @@
 import React from "react";
-import classes from "./MergeSort.module.css";
-import Button from "../ui/Button";
-import { getMergeSortAnimations } from "./getMergeSortAnimations";
+import classes from "../Sort.module.css";
+import Button from "../../ui/Button";
+import getSelectionSort from "./getSlectionSort";
 import { useState } from "react";
 import { useRef } from "react";
-import { BackButton } from "../ui/BackButton";
+import { BackButton } from "../../ui/BackButton";
 
-const MergeSort = () => {
-  const ANIMATION_SPEED = 50;
-  const NUMBER_OF_BAR = 20;
+const SelectionSort = () => {
+  const ANIMATION_SPEED = 1;
+  const NUMBER_OF_BAR = 400;
   const SECONDARY_COLOR = "#ff4e4a";
   const PRIMARY_COLOR = "teal";
   const [array, setArray] = useState([40, 70, 50]);
@@ -16,8 +16,9 @@ const MergeSort = () => {
   const min = 5;
   const arraybarRef = useRef(null);
 
-  const mergeSort = () => {
-    const animations = getMergeSortAnimations(array);
+  const selectionSort = () => {
+    const animations = getSelectionSort(array);
+    console.log(animations);
     for (let i = 0; i < animations.length; i++) {
       const arrayBars = document.getElementsByClassName(
         arraybarRef.current.className
@@ -55,7 +56,7 @@ const MergeSort = () => {
   return (
     <div className={classes.container}>
       <BackButton />
-      <div className={classes.heading}>MergeSort</div>
+      <div className={classes.heading}>Selection Sort</div>
       <div className={classes.array}>
         {array.map((value, index) => (
           <div
@@ -83,14 +84,14 @@ const MergeSort = () => {
         </Button>
         <Button
           onClick={() => {
-            mergeSort();
+            selectionSort();
           }}
         >
-          MergeSort
+          SelectionSort
         </Button>
       </div>
     </div>
   );
 };
 
-export default MergeSort;
+export default SelectionSort;

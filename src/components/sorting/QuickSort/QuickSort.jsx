@@ -1,10 +1,10 @@
 import React from "react";
-import classes from "./MergeSort.module.css";
-import Button from "../ui/Button";
+import classes from "../Sort.module.css";
+import Button from "../../ui/Button";
 import { getQuickSortAnimations } from "./getQuickSortAnimations";
 import { useState } from "react";
 import { useRef } from "react";
-import { BackButton } from "../ui/BackButton";
+import { BackButton } from "../../ui/BackButton";
 
 const QuickSort = () => {
   const ANIMATION_SPEED = 10;

@@ -1,14 +1,16 @@
 import React, { Component } from "react";
 import { Route, Routes } from "react-router-dom";
 import Home from "./components/home/Home";
-import MergeSort from "./components/sorting/MergeSort";
-import SelectionSort from "./components/sorting/SelectionSort";
-import BubbleSort from "./components/sorting/BubbleSort";
-import InsertionSort from "./components/sorting/InsertionSort";
-import QuickSort from "./components/sorting/QuickSort";
 
-import PathFinder from "./components/graph/PathFinder";
+import MergeSort from "./components/sorting/MergeSort/MergeSort";
+import SelectionSort from "./components/sorting/SelectionSort/SelectionSort";
+import BubbleSort from "./components/sorting/BubbleSort/BubbleSort";
+import InsertionSort from "./components/sorting/InsertionSort/InsertionSort";
+import QuickSort from "./components/sorting/QuickSort/QuickSort";
+
+import BreadthFirstSearch from "./components/graph/BreadthFirstSearch/BreadthFirstSearch";
 import DepthFirstSearch from "./components/graph/DepthFirstSearch/DepthFirstSearch";
+import MinimumCostPath from "./components/graph/MinimumCostPath/MinimumCostPath";
 
 const routes = [
   {
@@ -36,12 +38,16 @@ const routes = [
     Component: QuickSort,
   },
   {
-    path: "/pathfinder",
-    Component: PathFinder,
+    path: "/breadthfirstsearch",
+    Component: BreadthFirstSearch,
   },
   {
     path: "/depthfirstsearch",
     Component: DepthFirstSearch,
+  },
+  {
+    path: "/minimumcostpath",
+    Component: MinimumCostPath,
   },
 ];
 

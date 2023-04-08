@@ -28,11 +28,14 @@ const Home = () => {
       <div className={classes.heading}>Graph Visualizer</div>
       <div className={classes.navbar}>
         <div className={classes.nav}>
-          <Link to="/pathfinder" className={classes.navItem}>
-            Pathfinder
+          <Link to="/breadthfirstsearch" className={classes.navItem}>
+            Breadth First Search
           </Link>
           <Link to="/depthfirstsearch" className={classes.navItem}>
             Depth First Search
+          </Link>
+          <Link to="/minimumcostpath" className={classes.navItem}>
+            Minimum Cost Path
           </Link>
         </div>
       </div>

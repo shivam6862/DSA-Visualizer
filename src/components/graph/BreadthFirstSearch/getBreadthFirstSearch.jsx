@@ -30,7 +30,7 @@ const getUnvisitedNeighbors = (node, grid) => {
   return neighbors.filter((neighbor) => !neighbor.isVisited);
 };
 
-export const dijkstra = (grid, startNode, finishNode) => {
+export const breadthFirstSearch = (grid, startNode, finishNode) => {
   const visitedNodesInOrder = [];
   startNode.distance = 0;
   const unvisitedNodes = getAllNodes(grid);

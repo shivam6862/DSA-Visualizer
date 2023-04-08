@@ -1,15 +1,23 @@
 import React, { useState, useRef, useEffect } from "react";
-import { getNodesInShortestPathOrder, dijkstra } from "./getPathFinder";
-import classes from "./PathFinder.module.css";
-import Button from "../ui/Button";
-import { BackButton } from "../ui/BackButton";
+import {
+  getNodesInShortestPathOrder,
+  minimumCostPath,
+} from "./getMinimumCostPath";
+import classes from "../Graph.module.css";
+import Button from "../../ui/Button";
+import { BackButton } from "../../ui/BackButton";
 import Node from "./Node";
 
-const PathFinder = () => {
-  const START_NODE_COL = 5;
-  const START_NODE_ROW = 6;
-  const FINISH_NODE_ROW = 10;
-  const FINISH_NODE_COL = 18;
+const MinimumCostPath = () => {
+  const START_NODE_ROW = 1;
+  const START_NODE_COL = 1;
+  const FINISH_NODE_ROW = 4;
+  const FINISH_NODE_COL = 5;
+  const TOTAL_ROW = 5;
+  const TOTAL_COL = 6;
+  const ANIMATION_SPEED = 1;
+  const max = 8;
+  const min = 1;
 
   const [grid, setGrid] = useState([]);
   const [mouseIsPressed, setMouseIsPressed] = useState(false);
@@ -19,22 +27,25 @@ const PathFinder = () => {
   // Step 1
   const createNode = (col, row) => {
     return {
-      col,
       row,
+      col,
       isStart: row === START_NODE_ROW && col === START_NODE_COL,
       isFinish: row === FINISH_NODE_ROW && col === FINISH_NODE_COL,
       distance: Infinity,
       isVisited: false,
       isWall: false,
       previousNode: null,
+      cost: Math.floor(Math.random() * (max - min + 1) + min),
     };
   };
 
   const refileGrid = () => {
     setButton(false);
     arraybarRef.current.innerHTML = "";
-    for (let row = 0; row < 15; row++) {
-      for (let col = 0; col < 45; col++) {
+    for (let row = 0; row < TOTAL_ROW; row++) {
+      for (let col = 0; col < TOTAL_COL; col++) {
+        document.getElementById(`node-${row}-${col}`).innerHTML =
+          grid[row][col].cost;
         if (row == START_NODE_ROW && col == START_NODE_COL) {
           document.getElementById(`node-${row}-${col}`).className =
             "node node-start";
@@ -50,9 +61,9 @@ const PathFinder = () => {
 
   const getInitialGrid = () => {
     const grid = [];
-    for (let row = 0; row < 15; row++) {
+    for (let row = 0; row < TOTAL_ROW; row++) {
       const currentRow = [];
-      for (let col = 0; col < 45; col++) {
+      for (let col = 0; col < TOTAL_COL; col++) {
         currentRow.push(createNode(col, row));
       }
       grid.push(currentRow);
@@ -93,27 +104,19 @@ const PathFinder = () => {
   };
 
   // Step 3
-  const animateDijkstra = (visitedNodesInOrder, nodesInShortestPathOrder) => {
-    var a = 0;
-    for (let i = 0; i <= visitedNodesInOrder.length; i++) {
-      if (i === visitedNodesInOrder.length) {
+  const animateDfs = (visitedNodesInOrder, nodesInShortestPathOrder) => {
+    for (let i = 0; i < visitedNodesInOrder.length; i++) {
+      if (i === visitedNodesInOrder.length - 1) {
         setTimeout(() => {
           animateShortestPath(nodesInShortestPathOrder);
-        }, 400 * (visitedNodesInOrder[visitedNodesInOrder.length - 1].distance + 1));
+        }, ANIMATION_SPEED * i);
         return;
       }
-      if (
-        i < visitedNodesInOrder.length - 1 &&
-        visitedNodesInOrder[i].distance != visitedNodesInOrder[i + 1].distance
-      ) {
-        ++a;
-      }
       setTimeout(() => {
-        console.log(visitedNodesInOrder[i]);
         const node = visitedNodesInOrder[i];
         document.getElementById(`node-${node.row}-${node.col}`).className =
           "node node-visited";
-      }, 400 * a);
+      }, ANIMATION_SPEED * i);
     }
   };
 
@@ -123,16 +126,18 @@ const PathFinder = () => {
         const node = nodesInShortestPathOrder[i];
         document.getElementById(`node-${node.row}-${node.col}`).className =
           "node node-shortest-path";
-      }, 100 * i);
+      }, ANIMATION_SPEED * 2 * i);
     }
     var length = nodesInShortestPathOrder.length - 1;
     setTimeout(() => {
       if (length <= 0) arraybarRef.current.innerHTML = "Path not Possible! ";
-      else arraybarRef.current.innerHTML = "Minimun Distance : " + length;
-    }, 100 * length);
+      else
+        arraybarRef.current.innerHTML =
+          "Minimun Distance : " + nodesInShortestPathOrder[length].distance;
+    }, ANIMATION_SPEED * 2 * length);
   };
 
-  const visualizeDijkstra = () => {
+  const visualizeDfs = () => {
     setButton(true);
     if (
       START_NODE_ROW == FINISH_NODE_ROW &&
@@ -143,22 +148,23 @@ const PathFinder = () => {
     }
     const startNode = grid[START_NODE_ROW][START_NODE_COL];
     const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
-    const visitedNodesInOrder = dijkstra(grid, startNode, finishNode);
+    startNode.isWall = false;
+    finishNode.isWall = false;
+    const visitedNodesInOrder = minimumCostPath(grid, startNode, finishNode);
     const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
-    animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
+    animateDfs(visitedNodesInOrder, nodesInShortestPathOrder);
   };
 
-  // Step 4
   return (
     <div className={classes.container}>
       <BackButton />
-      <div className={classes.heading}>PathFinder</div>
+      <div className={classes.heading}>Minimum Cost Path</div>
       <div className={classes.grid}>
         {grid.map((row, rowIdx) => {
           return (
             <div key={rowIdx}>
               {row.map((node, nodeIdx) => {
-                const { row, col, isFinish, isStart, isWall } = node;
+                const { row, col, isFinish, isStart, isWall, cost } = node;
                 return (
                   <Node
                     key={nodeIdx}
@@ -170,6 +176,7 @@ const PathFinder = () => {
                     onMouseDown={(row, col) => handleMouseDown(row, col)}
                     onMouseEnter={(row, col) => handleMouseEnter(row, col)}
                     onMouseUp={() => handleMouseUp()}
+                    cost={cost}
                   ></Node>
                 );
               })}
@@ -191,14 +198,14 @@ const PathFinder = () => {
         <Button
           disabled={button}
           onClick={() => {
-            visualizeDijkstra();
+            visualizeDfs();
           }}
         >
-          PathFinder
+          Minimum Cost Path
         </Button>
       </div>
     </div>
   );
 };
 
-export default PathFinder;
+export default MinimumCostPath;

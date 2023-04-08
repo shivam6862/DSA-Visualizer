@@ -8,8 +8,12 @@ const check = (row, col, grid) => {
 };
 
 const setDistanceAndPreviousNode = (grid, top, next_X, next_Y) => {
-  if (grid[next_X][next_Y].distance > top.distance + 1) {
-    grid[next_X][next_Y].distance = top.distance + 1;
+  if (
+    grid[next_X][next_Y].distance >
+    top.distance + Math.abs(top.cost - grid[next_X][next_Y].cost)
+  ) {
+    grid[next_X][next_Y].distance =
+      top.distance + Math.abs(top.cost - grid[next_X][next_Y].cost);
     grid[next_X][next_Y].previousNode = top;
   }
 };
@@ -35,9 +39,10 @@ const shortestPath = (grid, startNode, finishNode) => {
         var next_Y = top.col + dir[i + 1];
         if (!check(next_X, next_Y, grid)) continue;
         setDistanceAndPreviousNode(grid, top, next_X, next_Y);
-        if (grid[next_X][next_Y] != finishNode)
+        if (grid[next_X][next_Y] != finishNode) {
+          grid[next_X][next_Y].isVisited = true;
           stack.push(grid[next_X][next_Y]);
-        grid[next_X][next_Y].isVisited = true;
+        }
       }
     }
     var topvis = stack.pop();
@@ -51,7 +56,7 @@ const shortestPath = (grid, startNode, finishNode) => {
   return visitedNodesInOrder;
 };
 
-export const depthfirstsearch = (grid, startNode, finishNode) => {
+export const minimumCostPath = (grid, startNode, finishNode) => {
   const visitedNodesInOrder = shortestPath(grid, startNode, finishNode);
   console.log(visitedNodesInOrder);
   return visitedNodesInOrder;

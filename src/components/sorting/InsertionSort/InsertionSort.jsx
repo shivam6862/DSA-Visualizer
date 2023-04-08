@@ -1,14 +1,14 @@
 import React from "react";
-import classes from "./MergeSort.module.css";
-import Button from "../ui/Button";
-import getBubbleSort from "./getBubbleSort";
+import classes from "../Sort.module.css";
+import Button from "../../ui/Button";
+import getInsertionSort from "./getInsertionSort";
 import { useState } from "react";
 import { useRef } from "react";
-import { BackButton } from "../ui/BackButton";
+import { BackButton } from "../../ui/BackButton";
 
-const BubbleSort = () => {
+const InsertionSort = () => {
   const ANIMATION_SPEED = 1;
-  const NUMBER_OF_BAR = 50;
+  const NUMBER_OF_BAR = 200;
   const SECONDARY_COLOR = "#ff4e4a";
   const PRIMARY_COLOR = "teal";
   const [array, setArray] = useState([40, 70, 50]);
@@ -16,8 +16,8 @@ const BubbleSort = () => {
   const min = 5;
   const arraybarRef = useRef(null);
 
-  const bubbleSort = () => {
-    const animations = getBubbleSort(array);
+  const insertionSort = () => {
+    const animations = getInsertionSort(array);
     console.log(animations);
     for (let i = 0; i < animations.length; i++) {
       const arrayBars = document.getElementsByClassName(
@@ -56,7 +56,7 @@ const BubbleSort = () => {
   return (
     <div className={classes.container}>
       <BackButton />
-      <div className={classes.heading}>Bubble Sort</div>
+      <div className={classes.heading}>Insertion Sort</div>
       <div className={classes.array}>
         {array.map((value, index) => (
           <div
@@ -84,14 +84,14 @@ const BubbleSort = () => {
         </Button>
         <Button
           onClick={() => {
-            bubbleSort();
+            insertionSort();
           }}
         >
-          BubbleSort
+          InsertionSort
         </Button>
       </div>
     </div>
   );
 };
 
-export default BubbleSort;
+export default InsertionSort;
