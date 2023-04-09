@@ -12,6 +12,8 @@ import BreadthFirstSearch from "./components/graph/BreadthFirstSearch/BreadthFir
 import DepthFirstSearch from "./components/graph/DepthFirstSearch/DepthFirstSearch";
 import MinimumCostPath from "./components/graph/MinimumCostPath/MinimumCostPath";
 
+import EquationSolve from "./components/EquationSolve/EquationSolve";
+
 const routes = [
   {
     path: "/",
@@ -48,6 +50,10 @@ const routes = [
   {
     path: "/minimumcostpath",
     Component: MinimumCostPath,
+  },
+  {
+    path: "/equationsolve",
+    Component: EquationSolve,
   },
 ];
 

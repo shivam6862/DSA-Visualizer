@@ -39,6 +39,14 @@ const Home = () => {
           </Link>
         </div>
       </div>
+      <div className={classes.heading}>General Problems</div>
+      <div className={classes.navbar}>
+        <div className={classes.nav}>
+          <Link to="/equationsolve" className={classes.navItem}>
+            Equation Solver
+          </Link>
+        </div>
+      </div>
     </div>
   );
 };
