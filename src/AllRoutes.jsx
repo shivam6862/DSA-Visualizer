@@ -14,6 +14,10 @@ import MinimumCostPath from "./components/graph/MinimumCostPath/MinimumCostPath"
 
 import EquationSolve from "./components/EquationSolve/EquationSolve";
 
+import PreorderTraversal from "./components/Tree/Preorder/PreorderTraversal";
+import PostorderTraversal from "./components/Tree/Postorder/PostorderTraversal";
+import InorderTranversal from "./components/Tree/Inorder/InorderTranversal";
+
 const routes = [
   {
     path: "/",
@@ -54,6 +58,18 @@ const routes = [
   {
     path: "/equationsolve",
     Component: EquationSolve,
+  },
+  {
+    path: "/preordertraversal",
+    Component: PreorderTraversal,
+  },
+  {
+    path: "/postordertraversal",
+    Component: PostorderTraversal,
+  },
+  {
+    path: "/inordertranversal",
+    Component: InorderTranversal,
   },
 ];
 

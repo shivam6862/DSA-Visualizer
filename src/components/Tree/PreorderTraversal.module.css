@@ -1,0 +1,49 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.heading {
+  font-size: 3rem;
+  text-align: center;
+}
+
+.button {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  padding-top: 1rem;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.Trees {
+  margin: auto;
+  padding-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  width: 100%;
+  justify-content: space-around;
+}
+
+@media screen and (max-width: 600px) {
+  .heading {
+    font-size: 2rem;
+  }
+  .row {
+    gap: 0.5rem;
+  }
+  .Trees {
+    gap: 1.5rem;
+  }
+}

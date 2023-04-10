@@ -3,50 +3,42 @@ import classes from "./Home.module.css";
 import { Link } from "react-router-dom";
 
 const Home = () => {
+  const data = {
+    "Sorting Visualizer": [
+      ["/mergesort", "Mergesort"],
+      ["/selectionsort", "Selectionsort"],
+      ["/bubblesort", "Bubblesort"],
+      ["/insertionsort", "Insertionsort"],
+      ["/quicksort", "Quicksort"],
+    ],
+    "Graph Visualizer": [
+      ["/breadthfirstsearch", "Breadth First Search"],
+      ["/depthfirstsearch", "Depth First Search"],
+      ["/minimumcostpath", "Minimum Cost Path"],
+    ],
+    "General Problems": [["/equationsolve", "Equation Solver"]],
+    "Tree Visualizer": [
+      ["/preordertraversal", "Preorder Traversal"],
+      ["/inordertranversal", "Inorder Traversal"],
+      ["/postordertraversal", "PostOrder Traversal"],
+    ],
+  };
   return (
     <div className={classes.home}>
-      <div className={classes.heading}>Sorting Visualizer</div>
-      <div className={classes.navbar}>
-        <div className={classes.nav}>
-          <Link to="/mergesort" className={classes.navItem}>
-            Mergesort
-          </Link>
-          <Link to="/selectionsort" className={classes.navItem}>
-            Selectionsort
-          </Link>
-          <Link to="/bubblesort" className={classes.navItem}>
-            Bubblesort
-          </Link>
-          <Link to="/insertionsort" className={classes.navItem}>
-            Insertionsort
-          </Link>
-          <Link to="/quicksort" className={classes.navItem}>
-            Quicksort
-          </Link>
+      {Object.entries(data).map(([key, value]) => (
+        <div key={key} className={classes.each_object}>
+          <div className={classes.heading}>{key}</div>
+          <div className={classes.navbar}>
+            <div className={classes.nav}>
+              {value.map((navitem, index) => (
+                <Link to={navitem[0]} className={classes.navItem} key={index}>
+                  {navitem[1]}
+                </Link>
+              ))}
+            </div>
+          </div>
         </div>
-      </div>
-      <div className={classes.heading}>Graph Visualizer</div>
-      <div className={classes.navbar}>
-        <div className={classes.nav}>
-          <Link to="/breadthfirstsearch" className={classes.navItem}>
-            Breadth First Search
-          </Link>
-          <Link to="/depthfirstsearch" className={classes.navItem}>
-            Depth First Search
-          </Link>
-          <Link to="/minimumcostpath" className={classes.navItem}>
-            Minimum Cost Path
-          </Link>
-        </div>
-      </div>
-      <div className={classes.heading}>General Problems</div>
-      <div className={classes.navbar}>
-        <div className={classes.nav}>
-          <Link to="/equationsolve" className={classes.navItem}>
-            Equation Solver
-          </Link>
-        </div>
-      </div>
+      ))}
     </div>
   );
 };
