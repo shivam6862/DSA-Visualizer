@@ -10,7 +10,7 @@ const isdigit = (char) => {
 };
 
 const Solve_small_equation = (equation) => {
-  const orderOfOperations = ["/", "*", "+", "-"];
+  const orderOfOperations = ["^", "/", "*", "+", "-"];
   for (let i = 0; i < orderOfOperations.length; i++) {
     const operator = orderOfOperations[i];
     const regex = new RegExp(`(-?\\d*\\.?\\d+)\\${operator}(-?\\d*\\.?\\d+)`);
@@ -22,6 +22,9 @@ const Solve_small_equation = (equation) => {
       const num2 = parseFloat(match[2]);
       let result;
       switch (operator) {
+        case "^":
+          result = Math.pow(num1, num2);
+          break;
         case "/":
           result = num1 / num2;
           break;
@@ -56,15 +59,20 @@ export const solveEquation = (equation) => {
       stack.push(equation[i]);
     } else if (equation[i] == ")" || equation[i] == "}" || equation[i] == "]") {
       var last = stack.pop();
-      if (Bracket_Value[last] + Bracket_Value[equation[i]] != 0)
-        return "Equation must be Valid!";
+      if (Bracket_Value[last] + Bracket_Value[equation[i]] != 0) {
+        const result = "Equation must be Valid!";
+        return { result, animation };
+      }
       newEquaton += ")";
       if (i < equation.length - 1 && isdigit(equation[i + 1]))
         newEquaton += "*";
     } else newEquaton += equation[i];
   }
 
-  if (stack.length > 0) return "Equation must be Valid!";
+  if (stack.length > 0) {
+    const result = "Equation must be Valid!";
+    return { result, animation };
+  }
 
   for (var i = 0; i < newEquaton.length; i++) {
     if (newEquaton[i] == ")") {
@@ -75,7 +83,10 @@ export const solveEquation = (equation) => {
         small_equation = last_Value + small_equation;
       }
       const value_of_small_equation = Solve_small_equation(small_equation);
-      if (value_of_small_equation == Infinity) return "Infinity";
+      if (value_of_small_equation == Infinity) {
+        const result = "Infinity";
+        return { result, animation };
+      }
       stack.push(value_of_small_equation);
     } else {
       stack.push(newEquaton[i]);
