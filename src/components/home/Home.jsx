@@ -16,7 +16,10 @@ const Home = () => {
       ["/depthfirstsearch", "Depth First Search"],
       ["/minimumcostpath", "Minimum Cost Path"],
     ],
-    "General Problems": [["/equationsolve", "Equation Solver"]],
+    "General Problems": [
+      ["/equationsolve", "Equation Solver"],
+      ["/nqueen", "N-Queen Problem"],
+    ],
     "Tree Visualizer": [
       ["/preordertraversal", "Preorder Traversal"],
       ["/inordertranversal", "Inorder Traversal"],

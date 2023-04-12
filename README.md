@@ -3,7 +3,7 @@
 <h2 align="center">DSA Visualizer</h2>
 
   <p align="center">
-   This project is a DSA Visualizer built with React. It contains various algorithms related to sorting, graphs, trees, and equation solvers.
+   This project is a DSA Visualizer built with React. It contains various algorithms related to sorting, graphs, trees, and General problems.
     <br />
     <br />
     <a href="https://github.com/shivam6862/DSA-Visualizer/issues">Report Bug</a>
@@ -31,7 +31,7 @@
 
 ## About The Project
 
-This project is a DSA Visualizer built with React. It contains various algorithms related to sorting, graphs, trees, and equation solvers.
+This project is a DSA Visualizer built with React. It contains various algorithms related to sorting, graphs, trees, and General problems.
 The project provides a visual interface to help users better understand how these algorithms work.
 
 Team - `shivam6862`
@@ -78,6 +78,8 @@ The DSA Visualizer project includes the following features:<br/>
 - Tree Algorithms: Visualize and understand how trees work, PreOrder , Inorder , and PostOrder traversal .<br/>
 
 - Equation Solver Algorithms: Input equations and solve them using different techniques.<br/>
+
+- N-Queens Problem Algorithms: The visualization tool will show all the possible solution to the N-Queen problem using a backtracking algorithm.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

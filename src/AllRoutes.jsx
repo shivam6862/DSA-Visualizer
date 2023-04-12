@@ -18,6 +18,8 @@ import PreorderTraversal from "./components/Tree/Preorder/PreorderTraversal";
 import PostorderTraversal from "./components/Tree/Postorder/PostorderTraversal";
 import InorderTranversal from "./components/Tree/Inorder/InorderTranversal";
 
+import NQueen from "./components/N-Queens-Problem/NQueens";
+
 const routes = [
   {
     path: "/",
@@ -70,6 +72,10 @@ const routes = [
   {
     path: "/inordertranversal",
     Component: InorderTranversal,
+  },
+  {
+    path: "/nqueen",
+    Component: NQueen,
   },
 ];
 
