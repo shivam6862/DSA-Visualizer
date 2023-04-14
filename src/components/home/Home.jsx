@@ -19,6 +19,7 @@ const Home = () => {
     "General Problems": [
       ["/equationsolve", "Equation Solver"],
       ["/nqueen", "N-Queen Problem"],
+      ["/minesweeper", "Minesweeper Game"],
     ],
     "Tree Visualizer": [
       ["/preordertraversal", "Preorder Traversal"],

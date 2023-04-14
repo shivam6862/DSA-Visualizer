@@ -20,6 +20,8 @@ import InorderTranversal from "./components/Tree/Inorder/InorderTranversal";
 
 import NQueen from "./components/N-Queens-Problem/NQueens";
 
+import Minesweeper from "./components/Minesweeper/Minesweeper";
+
 const routes = [
   {
     path: "/",
@@ -76,6 +78,10 @@ const routes = [
   {
     path: "/nqueen",
     Component: NQueen,
+  },
+  {
+    path: "/minesweeper",
+    Component: Minesweeper,
   },
 ];
 

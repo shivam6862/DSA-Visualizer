@@ -81,6 +81,9 @@ The DSA Visualizer project includes the following features:<br/>
 
 - N-Queens Problem Algorithms: The visualization tool will show all the possible solution to the N-Queen problem using a backtracking algorithm.
 
+- Minesweeper Game: The objective of the game is to clear a minefield without detonating any mines. The game can be played by
+  clicking on squares to flag them, and avoiding mines.
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Usage
