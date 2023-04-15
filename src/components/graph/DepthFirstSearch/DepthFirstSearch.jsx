@@ -148,7 +148,7 @@ const DepthFirstSearch = () => {
       <div className={classes.grid}>
         {grid.map((row, rowIdx) => {
           return (
-            <div key={rowIdx}>
+            <div key={rowIdx} className={classes.row}>
               {row.map((node, nodeIdx) => {
                 const { row, col, isFinish, isStart, isWall } = node;
                 return (

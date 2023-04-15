@@ -24,8 +24,14 @@
   margin: 2rem 0rem 1rem 0rem;
 }
 
-.answer{
+.answer {
   text-align: center;
   height: 1.5rem;
   font-size: 1.4rem;
+}
+
+.row {
+  padding: 0;
+  margin: 0;
+  display: flex;
 }

@@ -1,14 +1,18 @@
 import React from "react";
-import "./Node.css";
+import "./MinesweeperNode.css";
 
 const Node = ({ col, row, distance, isRevealed, isMine, onClick }) => {
   const extraClassName =
-    isMine && isRevealed ? "node-mine" : isRevealed ? "node-revealed" : "node-notrevealed";
+    isMine && isRevealed
+      ? "node-mine"
+      : isRevealed
+      ? "node-revealed"
+      : "node-notrevealed";
 
   return (
     <div
       id={`node-${row}-${col}`}
-      className={`node ${extraClassName} `}
+      className={`node-Minesweeper ${extraClassName} `}
       style={{
         width: `${window.innerWidth / 50}px`,
         height: `${window.innerWidth / 50}px`,

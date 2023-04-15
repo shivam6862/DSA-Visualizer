@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import classes from "./Minesweeper.module.css";
 import Button from "../ui/Button";
 import { BackButton } from "../ui/BackButton";
-import Node from "./Node";
+import Node from "./MinesweeperNode";
 import { getMinesweeper } from "./getMinesweeper";
 
 const Minesweeper = () => {
