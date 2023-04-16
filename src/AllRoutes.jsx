@@ -22,6 +22,8 @@ import NQueen from "./components/N-Queens-Problem/NQueens";
 
 import Minesweeper from "./components/Minesweeper/Minesweeper";
 
+import Game2048 from "./components/Game2048/Game2048";
+
 const routes = [
   {
     path: "/",
@@ -82,6 +84,10 @@ const routes = [
   {
     path: "/minesweeper",
     Component: Minesweeper,
+  },
+  {
+    path: "/game2048",
+    Component: Game2048,
   },
 ];
 

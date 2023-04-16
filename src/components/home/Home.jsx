@@ -20,6 +20,7 @@ const Home = () => {
       ["/equationsolve", "Equation Solver"],
       ["/nqueen", "N-Queen Problem"],
       ["/minesweeper", "Minesweeper Game"],
+      ["/game2048", "2048 Game"],
     ],
     "Tree Visualizer": [
       ["/preordertraversal", "Preorder Traversal"],
