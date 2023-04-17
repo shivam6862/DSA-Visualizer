@@ -84,6 +84,8 @@ The DSA Visualizer project includes the following features:<br/>
 - Minesweeper Game: The objective of the game is to clear a minefield without detonating any mines. The game can be played by
   clicking on squares to flag them, and avoiding mines.
 
+- Game2048: The game's objective is to slide numbered tiles on a grid to combine them to create a tile with the number 2048.
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Usage

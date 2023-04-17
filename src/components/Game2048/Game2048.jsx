@@ -4,6 +4,7 @@ import Button from "../ui/Button";
 import { BackButton } from "../ui/BackButton";
 import Node from "./Game2048Node";
 import { getGame2048 } from "./getGame2048";
+import Game2048Result from "./Game2048Result";
 
 const Game2048 = () => {
   const TOTAL_ROW = 6;
@@ -11,6 +12,8 @@ const Game2048 = () => {
 
   const [grid, setGrid] = useState([]);
   const [score, setScore] = useState(0);
+  const [result, setResult] = useState(false);
+  const [valueOfResult, setValueOfResult] = useState("");
 
   const createNode = (row, col) => {
     return {
@@ -69,15 +72,73 @@ const Game2048 = () => {
     };
   }, [grid]);
 
+  var startX, startY;
+  const handleTouchStart = (event) => {
+    startX = event.touches[0].pageX;
+    startY = event.touches[0].pageY;
+  };
+  const handleTouchEnd = (event) => {
+    var endX = event.changedTouches[0].pageX;
+    var endY = event.changedTouches[0].pageY;
+    var deltaX = endX - startX;
+    var deltaY = endY - startY;
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+      if (deltaX > 0) handleKeyEnter("right");
+      else handleKeyEnter("left");
+    } else {
+      if (deltaY > 0) handleKeyEnter("down");
+      else handleKeyEnter("up");
+    }
+  };
+  const handleMouseDown = (event) => {
+    startX = event.pageX;
+    startY = event.pageY;
+  };
+  const handleMouseUp = (event) => {
+    var endX = event.pageX;
+    var endY = event.pageY;
+    var deltaX = endX - startX;
+    var deltaY = endY - startY;
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+      if (deltaX > 0) handleKeyEnter("right");
+      else handleKeyEnter("left");
+    } else {
+      if (deltaY > 0) handleKeyEnter("down");
+      else handleKeyEnter("up");
+    }
+  };
+
   const handleKeyEnter = (direction) => {
+    let targetGrid = grid.find((row) => row.find((col) => col.value === 2048));
+    if (targetGrid != undefined) {
+      setValueOfResult(`You Won the game!`);
+      setResult(true);
+      return;
+    }
+
     const { board, count, Final_Score } = getGame2048(grid, score, direction);
-    if (count == 0) return;
+
+    let targetNode = board.find((row) => row.find((col) => col.value === 2048));
+    if (targetNode != undefined) {
+      setValueOfResult(`You Won the game!`);
+      setResult(true);
+      return;
+    }
+
+    if (count == 0) {
+      setValueOfResult(`You Lost the game by ${direction} Move`);
+      setResult(true);
+      return;
+    }
+
     var { Row_position, Col_Position } = generate_two_randam_number();
+
     while (grid[Row_position][Col_Position].value != "") {
       var { Row_position, Col_Position } = generate_two_randam_number();
       Row_position = Row_position;
       Col_Position = Col_Position;
     }
+
     grid[Row_position][Col_Position].value =
       Math.floor(Math.random() * 100) > 80 ? 4 : 2;
     console.log(count, Final_Score, board);
@@ -88,9 +149,25 @@ const Game2048 = () => {
   return (
     <div className={classes.container}>
       <BackButton />
-      <div className={classes.heading}>Game2048 Game </div>
+      <div className={classes.heading}>2048 Game </div>
       <div className={classes.grid}>
-        <div>
+        {result && (
+          <Game2048Result setResult={setResult} result={valueOfResult} />
+        )}
+        <div
+          onTouchStart={(event) => {
+            handleTouchStart(event);
+          }}
+          onTouchEnd={(event) => {
+            handleTouchEnd(event);
+          }}
+          onMouseDown={(event) => {
+            handleMouseDown(event);
+          }}
+          onMouseUp={(event) => {
+            handleMouseUp(event);
+          }}
+        >
           {grid.map((row, rowIdx) => {
             return (
               <div
