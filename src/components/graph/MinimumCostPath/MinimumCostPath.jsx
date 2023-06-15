@@ -6,7 +6,7 @@ import {
 import classes from "../Graph.module.css";
 import Button from "../../ui/Button";
 import { BackButton } from "../../ui/BackButton";
-import Node from "./Node";
+import MinimumCostPathNode from "./MinimumCostPathNode";
 
 const MinimumCostPath = () => {
   const START_NODE_ROW = 1;
@@ -18,6 +18,7 @@ const MinimumCostPath = () => {
   const ANIMATION_SPEED = 1;
   const max = 8;
   const min = 1;
+  const graphtype = "mcp";
 
   const [grid, setGrid] = useState([]);
   const [mouseIsPressed, setMouseIsPressed] = useState(false);
@@ -44,16 +45,17 @@ const MinimumCostPath = () => {
     arraybarRef.current.innerHTML = "";
     for (let row = 0; row < TOTAL_ROW; row++) {
       for (let col = 0; col < TOTAL_COL; col++) {
-        document.getElementById(`node-${row}-${col}`).innerHTML =
+        document.getElementById(`node-${row}-${col}-${graphtype}`).innerHTML =
           grid[row][col].cost;
         if (row == START_NODE_ROW && col == START_NODE_COL) {
-          document.getElementById(`node-${row}-${col}`).className =
+          document.getElementById(`node-${row}-${col}-${graphtype}`).className =
             "node node-start";
         } else if (row == FINISH_NODE_ROW && col == FINISH_NODE_COL) {
-          document.getElementById(`node-${row}-${col}`).className =
+          document.getElementById(`node-${row}-${col}-${graphtype}`).className =
             "node node-finish";
         } else {
-          document.getElementById(`node-${row}-${col}`).className = "node";
+          document.getElementById(`node-${row}-${col}-${graphtype}`).className =
+            "node";
         }
       }
     }
@@ -114,8 +116,9 @@ const MinimumCostPath = () => {
       }
       setTimeout(() => {
         const node = visitedNodesInOrder[i];
-        document.getElementById(`node-${node.row}-${node.col}`).className =
-          "node node-visited";
+        document.getElementById(
+          `node-${node.row}-${node.col}-${graphtype}`
+        ).className = "node node-visited";
       }, ANIMATION_SPEED * i);
     }
   };
@@ -124,8 +127,9 @@ const MinimumCostPath = () => {
     for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
       setTimeout(() => {
         const node = nodesInShortestPathOrder[i];
-        document.getElementById(`node-${node.row}-${node.col}`).className =
-          "node node-shortest-path";
+        document.getElementById(
+          `node-${node.row}-${node.col}-${graphtype}`
+        ).className = "node node-shortest-path";
       }, ANIMATION_SPEED * 2 * i);
     }
     var length = nodesInShortestPathOrder.length - 1;
@@ -166,7 +170,7 @@ const MinimumCostPath = () => {
               {row.map((node, nodeIdx) => {
                 const { row, col, isFinish, isStart, isWall, cost } = node;
                 return (
-                  <Node
+                  <MinimumCostPathNode
                     key={nodeIdx}
                     col={col}
                     row={row}
@@ -177,7 +181,8 @@ const MinimumCostPath = () => {
                     onMouseEnter={(row, col) => handleMouseEnter(row, col)}
                     onMouseUp={() => handleMouseUp()}
                     cost={cost}
-                  ></Node>
+                    graphtype={graphtype}
+                  ></MinimumCostPathNode>
                 );
               })}
             </div>

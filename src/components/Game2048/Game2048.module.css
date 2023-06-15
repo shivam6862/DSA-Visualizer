@@ -1,12 +1,15 @@
 .container {
   min-height: 100vh;
 }
-
 .heading {
+  padding: 0;
+  margin: 0;
   font-size: 3rem;
   text-align: center;
+  color: white;
+  padding-top: 1rem;
+  width: -webkit-fill-available;
 }
-
 .button {
   display: flex;
   gap: 2rem;
@@ -15,7 +18,6 @@
   font-size: 1.2rem;
   margin-bottom: 1rem;
 }
-
 .grid {
   display: flex;
   flex-direction: column;
@@ -23,17 +25,15 @@
   align-items: center;
   margin: 2rem 0rem 1rem 0rem;
 }
-
 .row {
   padding: 0;
   margin: 0;
   display: flex;
 }
-
 .score {
   margin-top: 1rem;
   font-size: 1.5rem;
-  color: black;
+  color: white;
 }
 
 @media screen and (max-width: 800px) {

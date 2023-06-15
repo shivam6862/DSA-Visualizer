@@ -16,7 +16,7 @@ const setColor = {
   2048: "#008080",
 };
 
-const Node = ({ col, row, value }) => {
+const Game2048Node = ({ col, row, value }) => {
   const backgroundcolor = setColor[value];
   return (
     <div
@@ -25,6 +25,7 @@ const Node = ({ col, row, value }) => {
       style={{
         width: `${window.innerWidth / 20}px`,
         height: `${window.innerWidth / 20}px`,
+        lineHeight: `${window.innerWidth / 20}px`,
         backgroundColor: backgroundcolor,
       }}
     >
@@ -33,4 +34,4 @@ const Node = ({ col, row, value }) => {
   );
 };
 
-export default Node;
+export default Game2048Node;

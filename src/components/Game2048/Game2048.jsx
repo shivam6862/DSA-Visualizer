@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import classes from "./Game2048.module.css";
 import Button from "../ui/Button";
 import { BackButton } from "../ui/BackButton";
-import Node from "./Game2048Node";
+import Game2048Node from "./Game2048Node";
 import { getGame2048 } from "./getGame2048";
 import Game2048Result from "./Game2048Result";
 
@@ -180,12 +180,12 @@ const Game2048 = () => {
                 {row.map((node, nodeIdx) => {
                   const { row, col, value } = node;
                   return (
-                    <Node
+                    <Game2048Node
                       key={nodeIdx}
                       col={col}
                       row={row}
                       value={value}
-                    ></Node>
+                    ></Game2048Node>
                   );
                 })}
               </div>

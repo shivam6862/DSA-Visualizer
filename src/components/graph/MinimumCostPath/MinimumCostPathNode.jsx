@@ -1,7 +1,7 @@
 import React from "react";
-import "../Node.css";
+import "../GraphNode.css";
 
-const Node = ({
+const MinimumCostPathNode = ({
   col,
   row,
   isFinish,
@@ -11,6 +11,7 @@ const Node = ({
   onMouseEnter,
   onMouseUp,
   cost,
+  graphtype,
 }) => {
   const extraClassName = isFinish
     ? "node-finish"
@@ -22,13 +23,14 @@ const Node = ({
 
   return (
     <div
-      id={`node-${row}-${col}`}
+      id={`node-${row}-${col}-${graphtype}`}
       className={`node ${extraClassName}`}
       style={{
         width: `${window.innerWidth / 15}px`,
         height: `${window.innerWidth / 15}px`,
         fontSize: `${window.innerWidth / 800}rem`,
         textAlign: "center",
+        lineHeight: `${window.innerWidth / 15}px`,
       }}
       onMouseDown={() => onMouseDown(row, col)}
       onMouseEnter={() => onMouseEnter(row, col)}
@@ -38,4 +40,4 @@ const Node = ({
     </div>
   );
 };
-export default Node;
+export default MinimumCostPathNode;

@@ -1,7 +1,7 @@
 import React from "react";
-import "./Node.css";
+import "./GraphNode.css";
 
-const Node = ({
+const GraphNode = ({
   col,
   row,
   isFinish,
@@ -10,6 +10,8 @@ const Node = ({
   onMouseDown,
   onMouseEnter,
   onMouseUp,
+  graphtype,
+  TOTAL_COL,
 }) => {
   const extraClassName = isFinish
     ? "node-finish"
@@ -21,11 +23,11 @@ const Node = ({
 
   return (
     <div
-      id={`node-${row}-${col}`}
+      id={`node-${row}-${col}-${graphtype}`}
       className={`node ${extraClassName}`}
       style={{
-        width: `${window.innerWidth / 60}px`,
-        height: `${window.innerWidth / 60}px`,
+        width: `${window.innerWidth / (1.2 * TOTAL_COL)}px`,
+        height: `${window.innerWidth / (1.2 * TOTAL_COL)}px`,
       }}
       onMouseDown={() => onMouseDown(row, col)}
       onMouseEnter={() => onMouseEnter(row, col)}
@@ -33,4 +35,4 @@ const Node = ({
     ></div>
   );
 };
-export default Node;
+export default GraphNode;

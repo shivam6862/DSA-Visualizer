@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
-import classes from "../PreorderTraversal.module.css";
+import classes from "../Tree.module.css";
 import Button from "../../ui/Button";
 import { BackButton } from "../../ui/BackButton";
 import { getInordertraversal } from "./getInorderTranversal";
-import Node from "../Node";
+import TreeNode from "../TreeNode";
 
 const InorderTranversal = () => {
   const [tree, setTree] = useState([]);
   const [regenerate, setRegenerate] = useState(0);
   const ANIMATION_SPEED = 500;
+  const traversal = "inorder";
 
   useEffect(() => {
     const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
@@ -24,7 +25,8 @@ const InorderTranversal = () => {
         prevLetter += letter;
         Each_Row.push(letter);
         if (tree.length != 0)
-          document.getElementById(`${i}-${j}`).className = "common row_each_Element";
+          document.getElementById(`${i}-${j}`).className =
+            "common row_each_Element";
       }
       Final_array.push(Each_Row);
     }
@@ -41,7 +43,7 @@ const InorderTranversal = () => {
       const new_I = i;
       setTimeout(() => {
         document.getElementById(
-          `${animation[new_I][0]}-${animation[new_I][1]}`
+          `${animation[new_I][0]}-${animation[new_I][1]}-${traversal}`
         ).className = "common visited";
       }, ANIMATION_SPEED * i);
     }
@@ -55,12 +57,13 @@ const InorderTranversal = () => {
         {tree.map((row, index) => (
           <div key={index} className={classes.row}>
             {row.map((element, element_index) => (
-              <Node
+              <TreeNode
                 key={element_index}
                 row={index}
                 col={element_index}
                 element={element}
-              ></Node>
+                traversal={traversal}
+              ></TreeNode>
             ))}
           </div>
         ))}
@@ -78,7 +81,7 @@ const InorderTranversal = () => {
             preordertraversal();
           }}
         >
-          InorderTraversal
+          Inorder Traversal
         </Button>
       </div>
     </div>

@@ -7,10 +7,10 @@ import { useRef } from "react";
 import { BackButton } from "../../ui/BackButton";
 
 const BubbleSort = () => {
-  const ANIMATION_SPEED = 1;
-  const NUMBER_OF_BAR = 50;
-  const SECONDARY_COLOR = "#ff4e4a";
-  const PRIMARY_COLOR = "teal";
+  const ANIMATION_SPEED = 50;
+  const NUMBER_OF_BAR = 35;
+  const SECONDARY_COLOR = "#707070";
+  const PRIMARY_COLOR = "white";
   const [array, setArray] = useState([40, 70, 50]);
   const max = 100;
   const min = 5;

@@ -6,16 +6,25 @@ import {
 import classes from "../Graph.module.css";
 import Button from "../../ui/Button";
 import { BackButton } from "../../ui/BackButton";
-import Node from "../Node";
+import GraphNode from "../GraphNode";
 
 const DepthFirstSearch = () => {
   const START_NODE_COL = 1;
   const START_NODE_ROW = 1;
   const FINISH_NODE_ROW = 13;
   const FINISH_NODE_COL = 28;
-  const TOTAL_ROW = 15;
-  const TOTAL_COL = 45;
   const ANIMATION_SPEED = 1;
+  const graphtype = "dfs";
+  var TOTAL_ROW = 15;
+  var TOTAL_COL = 45;
+  if (window.innerWidth < 800) {
+    TOTAL_ROW = 10;
+    TOTAL_COL = 30;
+  }
+  if (window.innerWidth < 400) {
+    TOTAL_ROW = 7;
+    TOTAL_COL = 20;
+  }
 
   const [grid, setGrid] = useState([]);
   const [mouseIsPressed, setMouseIsPressed] = useState(false);
@@ -40,10 +49,10 @@ const DepthFirstSearch = () => {
     setButton(false);
     arraybarRef.current.innerHTML = "";
     document.getElementById(
-      `node-${START_NODE_ROW}-${START_NODE_COL}`
+      `node-${START_NODE_ROW}-${START_NODE_COL}-${graphtype}`
     ).className = "node node-start";
     document.getElementById(
-      `node-${FINISH_NODE_ROW}-${FINISH_NODE_COL}`
+      `node-${FINISH_NODE_ROW}-${FINISH_NODE_COL}-${graphtype}`
     ).className = "node node-finish";
   };
 
@@ -102,8 +111,9 @@ const DepthFirstSearch = () => {
       }
       setTimeout(() => {
         const node = visitedNodesInOrder[i];
-        document.getElementById(`node-${node.row}-${node.col}`).className =
-          "node node-visited";
+        document.getElementById(
+          `node-${node.row}-${node.col}-${graphtype}`
+        ).className = "node node-visited";
       }, ANIMATION_SPEED * i);
     }
   };
@@ -112,8 +122,9 @@ const DepthFirstSearch = () => {
     for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
       setTimeout(() => {
         const node = nodesInShortestPathOrder[i];
-        document.getElementById(`node-${node.row}-${node.col}`).className =
-          "node node-shortest-path";
+        document.getElementById(
+          `node-${node.row}-${node.col}-${graphtype}`
+        ).className = "node node-shortest-path";
       }, ANIMATION_SPEED * 2 * i);
     }
     var length = nodesInShortestPathOrder.length - 1;
@@ -152,7 +163,7 @@ const DepthFirstSearch = () => {
               {row.map((node, nodeIdx) => {
                 const { row, col, isFinish, isStart, isWall } = node;
                 return (
-                  <Node
+                  <GraphNode
                     key={nodeIdx}
                     col={col}
                     row={row}
@@ -162,7 +173,9 @@ const DepthFirstSearch = () => {
                     onMouseDown={(row, col) => handleMouseDown(row, col)}
                     onMouseEnter={(row, col) => handleMouseEnter(row, col)}
                     onMouseUp={() => handleMouseUp()}
-                  ></Node>
+                    graphtype={graphtype}
+                    TOTAL_COL={TOTAL_COL}
+                  ></GraphNode>
                 );
               })}
             </div>

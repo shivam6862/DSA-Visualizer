@@ -1,7 +1,7 @@
 .node {
   outline: 1px solid rgb(175, 216, 248);
+  background-color: #3e2723;
 }
-
 .node-finish {
   background-color: red;
 }
@@ -38,7 +38,7 @@
 }
 
 .node-wall {
-  background-color: rgb(12, 53, 71);
+  background-color: #707070;
 }
 
 .node-shortest-path {

@@ -2,12 +2,20 @@ import React, { useState, useRef, useEffect } from "react";
 import classes from "./Minesweeper.module.css";
 import Button from "../ui/Button";
 import { BackButton } from "../ui/BackButton";
-import Node from "./MinesweeperNode";
+import MinesweeperNode from "./MinesweeperNode";
 import { getMinesweeper } from "./getMinesweeper";
 
 const Minesweeper = () => {
-  const TOTAL_ROW = 15;
-  const TOTAL_COL = 30;
+  var TOTAL_ROW = 15;
+  var TOTAL_COL = 45;
+  if (window.innerWidth < 800) {
+    TOTAL_ROW = 15;
+    TOTAL_COL = 30;
+  }
+  if (window.innerWidth < 400) {
+    TOTAL_ROW = 15;
+    TOTAL_COL = 20;
+  }
 
   const [grid, setGrid] = useState([]);
   const [nextPlay, setNextPlay] = useState(true);
@@ -63,7 +71,7 @@ const Minesweeper = () => {
               {row.map((node, nodeIdx) => {
                 const { row, col, distance, isMine, isRevealed } = node;
                 return (
-                  <Node
+                  <MinesweeperNode
                     key={nodeIdx}
                     col={col}
                     row={row}
@@ -73,7 +81,8 @@ const Minesweeper = () => {
                     onClick={() => {
                       PlayMinesweeper(row, col);
                     }}
-                  ></Node>
+                    TOTAL_COL={TOTAL_COL}
+                  ></MinesweeperNode>
                 );
               })}
             </div>

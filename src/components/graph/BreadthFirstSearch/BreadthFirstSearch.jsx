@@ -6,13 +6,24 @@ import {
 import classes from "../Graph.module.css";
 import Button from "../../ui/Button";
 import { BackButton } from "../../ui/BackButton";
-import Node from "../Node";
+import GraphNode from "../GraphNode";
 
 const BreadthFirstSearch = () => {
   const START_NODE_COL = 5;
   const START_NODE_ROW = 6;
   const FINISH_NODE_ROW = 10;
   const FINISH_NODE_COL = 18;
+  const graphtype = "bfs";
+  var TOTAL_ROW = 15;
+  var TOTAL_COL = 45;
+  if (window.innerWidth < 800) {
+    TOTAL_ROW = 10;
+    TOTAL_COL = 30;
+  }
+  if (window.innerWidth < 400) {
+    TOTAL_ROW = 7;
+    TOTAL_COL = 20;
+  }
 
   const [grid, setGrid] = useState([]);
   const [mouseIsPressed, setMouseIsPressed] = useState(false);
@@ -36,16 +47,17 @@ const BreadthFirstSearch = () => {
   const refileGrid = () => {
     setButton(false);
     arraybarRef.current.innerHTML = "";
-    for (let row = 0; row < 15; row++) {
-      for (let col = 0; col < 45; col++) {
+    for (let row = 0; row < TOTAL_ROW; row++) {
+      for (let col = 0; col < TOTAL_COL; col++) {
         if (row == START_NODE_ROW && col == START_NODE_COL) {
-          document.getElementById(`node-${row}-${col}`).className =
+          document.getElementById(`node-${row}-${col}-${graphtype}`).className =
             "node node-start";
         } else if (row == FINISH_NODE_ROW && col == FINISH_NODE_COL) {
-          document.getElementById(`node-${row}-${col}`).className =
+          document.getElementById(`node-${row}-${col}-${graphtype}`).className =
             "node node-finish";
         } else {
-          document.getElementById(`node-${row}-${col}`).className = "node";
+          document.getElementById(`node-${row}-${col}-${graphtype}`).className =
+            "node";
         }
       }
     }
@@ -53,9 +65,9 @@ const BreadthFirstSearch = () => {
 
   const getInitialGrid = () => {
     const grid = [];
-    for (let row = 0; row < 15; row++) {
+    for (let row = 0; row < TOTAL_ROW; row++) {
       const currentRow = [];
-      for (let col = 0; col < 45; col++) {
+      for (let col = 0; col < TOTAL_COL; col++) {
         currentRow.push(createNode(col, row));
       }
       grid.push(currentRow);
@@ -116,8 +128,9 @@ const BreadthFirstSearch = () => {
       }
       setTimeout(() => {
         const node = visitedNodesInOrder[i];
-        document.getElementById(`node-${node.row}-${node.col}`).className =
-          "node node-visited";
+        document.getElementById(
+          `node-${node.row}-${node.col}-${graphtype}`
+        ).className = "node node-visited";
       }, 400 * a);
     }
   };
@@ -126,8 +139,9 @@ const BreadthFirstSearch = () => {
     for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
       setTimeout(() => {
         const node = nodesInShortestPathOrder[i];
-        document.getElementById(`node-${node.row}-${node.col}`).className =
-          "node node-shortest-path";
+        document.getElementById(
+          `node-${node.row}-${node.col}-${graphtype}`
+        ).className = "node node-shortest-path";
       }, 100 * i);
     }
     var length = nodesInShortestPathOrder.length - 1;
@@ -165,7 +179,7 @@ const BreadthFirstSearch = () => {
               {row.map((node, nodeIdx) => {
                 const { row, col, isFinish, isStart, isWall } = node;
                 return (
-                  <Node
+                  <GraphNode
                     key={nodeIdx}
                     col={col}
                     row={row}
@@ -175,7 +189,9 @@ const BreadthFirstSearch = () => {
                     onMouseDown={(row, col) => handleMouseDown(row, col)}
                     onMouseEnter={(row, col) => handleMouseEnter(row, col)}
                     onMouseUp={() => handleMouseUp()}
-                  ></Node>
+                    graphtype={graphtype}
+                    TOTAL_COL={TOTAL_COL}
+                  ></GraphNode>
                 );
               })}
             </div>

@@ -5,16 +5,16 @@ import { Link } from "react-router-dom";
 const Home = () => {
   const data = {
     "Sorting Visualizer": [
-      ["/mergesort", "Mergesort"],
-      ["/selectionsort", "Selectionsort"],
-      ["/bubblesort", "Bubblesort"],
-      ["/insertionsort", "Insertionsort"],
-      ["/quicksort", "Quicksort"],
+      ["/sorting/mergesort", "Mergesort"],
+      ["/sorting/selectionsort", "Selectionsort"],
+      ["/sorting/bubblesort", "Bubblesort"],
+      ["/sorting/insertionsort", "Insertionsort"],
+      ["/sorting/quicksort", "Quicksort"],
     ],
     "Graph Visualizer": [
-      ["/breadthfirstsearch", "Breadth First Search"],
-      ["/depthfirstsearch", "Depth First Search"],
-      ["/minimumcostpath", "Minimum Cost Path"],
+      ["/graph/breadthfirstsearch", "Breadth First Search"],
+      ["/graph/depthfirstsearch", "Depth First Search"],
+      ["/graph/minimumcostpath", "Minimum Cost Path"],
     ],
     "General Problems": [
       ["/equationsolve", "Equation Solver"],
@@ -23,13 +23,14 @@ const Home = () => {
       ["/game2048", "2048 Game"],
     ],
     "Tree Visualizer": [
-      ["/preordertraversal", "Preorder Traversal"],
-      ["/inordertranversal", "Inorder Traversal"],
-      ["/postordertraversal", "PostOrder Traversal"],
+      ["/tree/preordertraversal", "Preorder Traversal"],
+      ["/tree/inordertranversal", "Inorder Traversal"],
+      ["/tree/postordertraversal", "PostOrder Traversal"],
     ],
   };
   return (
     <div className={classes.home}>
+      <div className={classes.heading_top}>DSA Visualizer</div>
       {Object.entries(data).map(([key, value]) => (
         <div key={key} className={classes.each_object}>
           <div className={classes.heading}>{key}</div>
