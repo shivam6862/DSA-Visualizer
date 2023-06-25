@@ -25,7 +25,7 @@ const InorderTranversal = () => {
         prevLetter += letter;
         Each_Row.push(letter);
         if (tree.length != 0)
-          document.getElementById(`${i}-${j}`).className =
+          document.getElementById(`${i}-${j}-${traversal}`).className =
             "common row_each_Element";
       }
       Final_array.push(Each_Row);
